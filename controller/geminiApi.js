@@ -11,7 +11,7 @@ const gemini = async (command,assistantName,username) => {
         {
             "type": "general" | "google_search" | "youtube_search" | "youtube_play" | 
             "get_time" | "get_date" | "get_day" | "get_month" | "calculator_open" | "intagram_open" |
-            "facebook_open" | "weather_open",
+            "facebook_open" | "weather_show",
             "userinput": "<original user input>" {only remove your username from userinput if
             exists} and agar kisi ne google ya youtube pe kuch search krne bola ho to userinput
             me only wo search wala text jaye,
@@ -30,7 +30,7 @@ const gemini = async (command,assistantName,username) => {
             - "calculator_open": if user wants to open a calculator 
             - "instagram_open": if user wants to open instagram 
             - "facebook_open": if user wants to open facebook. 
-            -"weather_  show": if user wants to know weather 
+            -"weather_show": if user wants to know weather 
             - "get_time": if user asks for current time.
             - "get_date": if user asks for today's date.
             - "get_day": if user asks what day it is.
@@ -69,11 +69,9 @@ const gemini = async (command,assistantName,username) => {
         console.log("GEMINI API RESPONSE:", data);
         let raw = data.candidates[0].content.parts[0].text;
 
-        // Clean the ```json ... ``` formatting
         raw = raw.replace(/^```json\s*|```$/g, '');
 
         const parsed = JSON.parse(raw);
-        console.log(parsed.response); 
         return parsed; 
     } catch (error) {
         console.log("GEMINI API ERROR RESPONSE:", error);

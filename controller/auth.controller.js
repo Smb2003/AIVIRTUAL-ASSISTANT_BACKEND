@@ -186,6 +186,8 @@ const editVirtualAsssitantData = asyncHandler(async (req,res)=>{
         assistantName,
         image: imageURL,
         owner: req?.user?._id
+    },{
+        new: true
     })
     
     res
@@ -193,7 +195,7 @@ const editVirtualAsssitantData = asyncHandler(async (req,res)=>{
     .json(new ApiResponse(
         200,
         virtualAssistant,
-        "Virtual Assistant created successfully."
+        "Virtual Assistant updated successfully."
     ))
 })
 
