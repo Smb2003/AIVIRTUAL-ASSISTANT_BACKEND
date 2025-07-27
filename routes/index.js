@@ -4,6 +4,12 @@ const { VerifyJWT } = require("../middleware/auth.middleware");
 const { upload } = require("../middleware/multer.middleware");
 const router = express.Router();
 
+router.route("/").get((req,res)=>{
+    return res.json({
+        activeStatus: true,
+        error: false
+    })
+})
 router.route("/register").post(register);
 router.route("/login").post(login);
 router.route("/logOut").post(VerifyJWT,logOut);
