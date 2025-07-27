@@ -43,7 +43,9 @@ const gemini = async (command,assistantName,username) => {
             now your userInput-${command}
             ;
         }`
-        const api_Url = `${process.env.GEMINI_API_URL}?key=${process.env.GEMINI_API_KEY}`;
+        const api_Url = `${process.env.GEMINI_API_URL_AND_KEY}`;
+
+        console.log(api_Url);
 
         const response = await fetch(api_Url, {
             method: "POST",
