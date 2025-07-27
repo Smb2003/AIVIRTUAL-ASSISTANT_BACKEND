@@ -6,7 +6,6 @@ const asyncHandler = require("../utils/asyncHandler.js");
 const { uploadToCloudinary } = require("../utils/cloudinary.js");
 const { gemini } = require("./geminiApi.js");
 const moment = require("moment");
-// const {ObjectId} = require("mongoose.Schema.Types");
 const generateAccessAndRefreshToken = async (userId) => {
     const user = await User.findById(userId);
     const AccessToken = await user.generateAccessToken();
@@ -18,7 +17,6 @@ const generateAccessAndRefreshToken = async (userId) => {
 }
 
 const register = asyncHandler(async (req,res)=>{
-    console.log(req.body);
     const {name,email,password} = req.body;
     
     if([name,email,password].some(item => item?.trim() == "")){
@@ -49,7 +47,7 @@ const register = asyncHandler(async (req,res)=>{
 });
 
 const login = asyncHandler(async (req,res)=>{
-    console.log(req.body);
+
     const {email,password} = req.body;
 
     if([email,password].some(item => item?.trim() == "")){
@@ -73,8 +71,8 @@ const login = asyncHandler(async (req,res)=>{
 
     const options = {
         httpOnly: true,
-        secure: false,
-        sameSite: "Lax"
+        secure: true,
+        sameSite: "None"
     };
 
     res
@@ -93,11 +91,13 @@ const logOut = asyncHandler(async (req,res) => {
         $set:{
             refreshToken: undefined
         }
+    },{
+        new: true
     })
     const Options = {
         httpOnly: true,
-        sameSite: "Lax",
-        secure: false
+        sameSite: "None",
+        secure: true
     }
     res
     .status(200)
